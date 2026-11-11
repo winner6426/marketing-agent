@@ -1,0 +1,168 @@
+/*
+ * The only stylesheet. Components are styled with Tailwind utility classes in their JSX;
+ * this file holds the Tailwind setup, design tokens, the dark variant and keyframes.
+ */
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap");
+@import "tailwindcss";
+
+/* Dark mode follows a `.dark` class on the app root, toggled from the header. */
+@custom-variant dark (&:where(.dark, .dark *));
+/* The design's single phone breakpoint. */
+@custom-variant mobile (@media (width <= 760px));
+@custom-variant desktop (@media (width > 760px));
+
+@theme {
+  --font-sans: "Manrope", Arial, sans-serif;
+
+  --color-ink: #17241d;
+  --color-brand-50: #effaf5;
+  --color-brand-500: #0a8f5f;
+  --color-brand-600: #087a55;
+  --color-brand-700: #075e40;
+  --color-brand-900: #073b2d;
+
+  --animate-spin-fast: spin 0.8s linear infinite;
+  --animate-gen-dot: gen-dot 1s infinite;
+  --animate-message-in: message-in 0.25s ease-out;
+  --animate-modal-rise: modal-rise 0.2s ease-out;
+  /* The channel icons circling the AI badge on the chat welcome screen. */
+  --animate-channel-orbit: channel-icon-depth 20s linear infinite;
+  --animate-ring-spin: channel-ring-spin 12s linear infinite;
+  --animate-ring-reverse: channel-ring-reverse 16s linear infinite;
+
+  @keyframes channel-ring-spin {
+    0% {
+      transform: rotate(0);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  @keyframes channel-ring-reverse {
+    0% {
+      opacity: 0.48;
+      transform: rotate(360deg) scale(0.985);
+    }
+    50% {
+      opacity: 0.9;
+      transform: rotate(180deg) scale(1.02);
+    }
+    to {
+      opacity: 0.48;
+      transform: rotate(0) scale(0.985);
+    }
+  }
+  /* Each icon travels an ellipse, growing and coming forward at the bottom of the loop. */
+  @keyframes channel-icon-depth {
+    0%,
+    to {
+      z-index: 1;
+      opacity: 0.52;
+      filter: saturate(0.72) brightness(0.9);
+      top: 4%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.68);
+    }
+    12.5% {
+      z-index: 2;
+      opacity: 0.68;
+      filter: saturate(0.82);
+      top: 17%;
+      left: 82.5%;
+      transform: translate(-50%, -50%) scale(0.78);
+    }
+    25% {
+      z-index: 4;
+      opacity: 0.86;
+      filter: saturate(0.96);
+      top: 50%;
+      left: 96%;
+      transform: translate(-50%, -50%) scale(0.93);
+    }
+    37.5% {
+      z-index: 6;
+      opacity: 1;
+      filter: saturate(1.05) drop-shadow(0 8px 10px #05482f33);
+      top: 83%;
+      left: 82.5%;
+      transform: translate(-50%, -50%) scale(1.08);
+    }
+    50% {
+      z-index: 8;
+      opacity: 1;
+      filter: saturate(1.1) drop-shadow(0 11px 12px #05482f40);
+      top: 96%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(1.16);
+    }
+    62.5% {
+      z-index: 6;
+      opacity: 1;
+      filter: saturate(1.05) drop-shadow(0 8px 10px #05482f33);
+      top: 83%;
+      left: 17.5%;
+      transform: translate(-50%, -50%) scale(1.08);
+    }
+    75% {
+      z-index: 4;
+      opacity: 0.86;
+      filter: saturate(0.96);
+      top: 50%;
+      left: 4%;
+      transform: translate(-50%, -50%) scale(0.93);
+    }
+    87.5% {
+      z-index: 2;
+      opacity: 0.68;
+      filter: saturate(0.82);
+      top: 17%;
+      left: 17.5%;
+      transform: translate(-50%, -50%) scale(0.78);
+    }
+  }
+
+  @keyframes gen-dot {
+    50% {
+      opacity: 0.5;
+      transform: translateY(-5px);
+    }
+  }
+  @keyframes message-in {
+    0% {
+      opacity: 0;
+      transform: translateY(7px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  @keyframes modal-rise {
+    0% {
+      opacity: 0;
+      transform: translateY(12px) scale(0.985);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+}
+
+@layer base {
+  :root {
+    color: var(--color-ink);
+    font-synthesis: none;
+  }
+  body {
+    background:
+      radial-gradient(circle at 72% -10%, #dff7e8 0, #0000 32%),
+      linear-gradient(#f8fbf9, #edf3ef);
+  }
+  button {
+    cursor: pointer;
+  }
+  button:disabled {
+    cursor: not-allowed;
+  }
+}
